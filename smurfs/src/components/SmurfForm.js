@@ -18,15 +18,21 @@ const SmurfForm = props => {
   const handleSubmit = e => {
     e.preventDefault();
     props.addSmurfData(newSmurf);
+    document.getElementById("input-name").reset();
   };
 
-  // handleFormReset = () => {
-  //   props.addSmurfData(() => this.initialState)
-  // }
+  // handleFormReset = e => {
+  //   e.preventDefault();
+  //   props.addSmurfData(newSmurf);
+  // };
+
+  // const resetForm = e => {
+  //   setNewSmurf({ name: "", age: "", height: "" });
+  // };
 
   return (
     <div>
-      <form onSubmit={handleChanges}>
+      <form id="input-name">
         <input
           type="text"
           name="name"
@@ -51,6 +57,9 @@ const SmurfForm = props => {
         <button type="submit" onClick={handleSubmit}>
           Add Smurf
         </button>
+        {/* <button type="button" onClick={resetForm}>
+          Clear
+        </button> */}
       </form>
     </div>
   );
