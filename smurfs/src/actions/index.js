@@ -10,8 +10,8 @@ export const ADDING_SMURF = "ADDING_SMURF";
 export const ADD_FETCH_SUCCESS = "ADD_FETCH_SUCCESS";
 export const ADD_FETCH_FAILURE = "ADD_FETCH_FAILURE";
 // action types delete/update
-export const DELETE_SMURF = "DELETE_SMURF";
-export const UPDATE_SMURF = "UPDATE_SMURF";
+// export const DELETE_SMURF = "DELETE_SMURF";
+// export const UPDATE_SMURF = "UPDATE_SMURF";
 
 // action creator
 export const fetchSmurfData = () => dispatch => {
@@ -24,11 +24,17 @@ export const fetchSmurfData = () => dispatch => {
     .catch(res => dispatch({ type: FETCH_FAILURE, payload: res.data }));
 };
 
-export const addSmurfData = () => dispatch => {
+export const addSmurfData = smurf => dispatch => {
   dispatch({ type: ADDING_SMURF });
-
   axios
-    .get("http://localhost:3333/smurfs", addSmurfData)
-    .then(res => dispatch({ type: ADD_FETCH_SUCCESS, payload: res.data }))
+    .post("http://localhost:3333/smurfs", smurf)
+    .then(res => {
+      console.log(`POST RESPONSE`, res);
+      dispatch({
+        type: ADD_FETCH_SUCCESS,
+        payload: res.data
+      });
+    })
     .catch(res => dispatch({ type: ADD_FETCH_FAILURE, payload: res.data }));
+  // .catch(err => dispatch({ type: ADD_FAILURE }));
 };

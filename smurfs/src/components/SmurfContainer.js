@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 // component
-import SmurfForm from "./SmurfForm";
+import SmurfCardContainer from "./SmurfCardContainer";
 // action
 import { fetchSmurfData } from "../actions";
 
@@ -10,22 +10,17 @@ const SmurfContainer = props => {
   useEffect(() => {
     props.fetchSmurfData();
   }, []);
+
   if (props.isFetching) {
     // usually a spinner (react-loader-spinner)
     return <h2>Loading Smurfs...</h2>;
   }
 
   return (
-    <div>
-      SMURF VILLAGE
-      <SmurfForm />
-      {props.smurfData.map(smurf => (
-        <div>
-          <p>Name: {smurf.name}</p>
-          <p>Age: {smurf.age}</p>
-          <p>Height: {smurf.height}</p>
-        </div>
-      ))}
+    <div className="village-container">
+      {props.smurfData.map((smurf, index) => {
+        return <SmurfCardContainer key={index} smurf={smurf} />;
+      })}
     </div>
   );
 };

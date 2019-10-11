@@ -4,9 +4,9 @@ import {
   FETCH_FAILURE,
   ADD_FETCH_FAILURE,
   ADD_FETCH_SUCCESS,
-  ADDING_SMURF,
-  DELETE_SMURF,
-  UPDATE_SMURF
+  ADDING_SMURF
+  // DELETE_SMURF,
+  // UPDATE_SMURF
 } from "../actions";
 
 // Initial state
@@ -14,8 +14,6 @@ const initialState = {
   smurfData: [],
   isFetching: false,
   addingSmurf: false,
-  isUpdatingSmurf: false,
-  deletingSmurf: false,
   error: ""
 };
 
@@ -42,36 +40,42 @@ const reducer = (state = initialState, action) => {
       };
 
     /// POSTING SMURF REDUCER ///
-
     case ADDING_SMURF:
       return {
         ...state,
         isFetching: false,
-        addingSmurf: true,
-        error: ""
+        addingSmurf: true
       };
+
     case ADD_FETCH_SUCCESS:
+      console.log(`ADDING SMURF`, ADD_FETCH_SUCCESS);
       return {
         ...state,
         isFetching: false,
-        addingSmurf: false,
-        error: action.payload
+        error: "",
+        smurfData: action.payload
       };
+
     case ADD_FETCH_FAILURE:
       return {
         ...state,
-        smurfs: action.payload,
-        fetchingSmurfs: false,
         addingSmurf: false,
-        error: ""
+        error: action.payload
       };
+    // case ADD_FETCH_SUCCESS:
+    //   return {
+    //     ...state,
+    //     isFetching: false,
+    //     addingSmurf: false,
+    //     error: action.payload
+    //   };
 
-    case DELETE_SMURF: {
-      return {
-        ...state,
-        updatingSmurf: true
-      };
-    }
+    // case DELETE_SMURF: {
+    //   return {
+    //     ...state,
+    //     updatingSmurf: true
+    //   };
+    // }
     default:
       return state;
   }
